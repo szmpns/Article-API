@@ -1,0 +1,25 @@
+services:
+  app:
+    build: .
+    container_name: article_api_app
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    volumes:
+      - .:/code
+
+  db:
+    image: postgres:16
+    container_name: article_api_db
+    environment:
+      POSTGRES_DB: article_api
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
