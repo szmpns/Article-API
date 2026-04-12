@@ -5,6 +5,8 @@ from app.core.database import get_db
 from app.core.security import get_current_user
 from app.models.article import Article
 from app.models.users import User
+from app.models.notification import Notification
+from app.models.subscription import Subscription
 from app.schemas.article import ArticleCreate, ArticleResponse, ArticleUpdate
 
 router = APIRouter(prefix="/articles", tags=["articles"])
@@ -25,6 +27,25 @@ def create_article(
     db.add(article)
     db.commit()
     db.refresh(article)
+
+    subscriptions = db.query(Subscription).all()
+
+    notifications = []
+    for subscription in subscriptions:
+        if subscription.user_id == current_user.id:
+            continue
+
+        notifications.append(
+            Notification(
+                user_id=subscription.user_id,
+                article_id=article.id,
+                message=f"New article published: {article.title}",
+            )
+        )
+
+    if notifications:
+        db.add_all(notifications)
+        db.commit()
 
     return article
 
@@ -104,6 +125,7 @@ def delete_article(
     db.commit()
 
     return Response(status_code=status.HTTP_204_NO_CONTENT)
+
 
 @router.get("/ping")
 def articles_ping() -> dict[str, str]:
