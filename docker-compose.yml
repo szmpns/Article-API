@@ -10,6 +10,8 @@ services:
       - db
     volumes:
       - .:/code
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
   db:
     image: postgres:16
