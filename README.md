@@ -41,7 +41,6 @@ app/
 │   └── routes/
 │       ├── articles.py
 │       ├── auth.py
-│       ├── imports.py
 │       ├── notifications.py
 │       └── subscriptions.py
 ├── core/
@@ -78,6 +77,8 @@ Clone the repository:
 
 ```
 git clone https://github.com/szmpns/Article-API.git
+```
+```
 cd Article-API
 ```
 
@@ -255,6 +256,17 @@ To keep the solution simple, the following assumptions were made:
 * imported articles are assigned to the user who triggers the import
 * duplicate imported articles are skipped based on `title + content + author_id`
 * HTTPS is expected to be handled in production by a **reverse proxy**
+
+### Security (HTTPS)
+
+The application itself runs over HTTP inside Docker.
+
+In production, secure communication should be handled by a reverse proxy
+such as Nginx or Traefik, which terminates TLS and forwards traffic to the FastAPI app.
+
+Example production flow:
+
+Client -> HTTPS -> Reverse Proxy -> HTTP -> FastAPI app
 
 ---
 
