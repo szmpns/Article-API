@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-from app.api.routes import articles, auth, imports, notifications, subscriptions
+from app.api.routes import articles, auth, notifications, subscriptions
 from app.core.config import settings
 from app.core.database import Base, engine
 from app.models import article, notification, subscription, users
@@ -22,4 +22,3 @@ app.include_router(auth.router)
 app.include_router(articles.router)
 app.include_router(subscriptions.router)
 app.include_router(notifications.router)
-app.include_router(imports.router)
