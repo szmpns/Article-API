@@ -221,8 +221,3 @@ def delete_article(
     db.commit()
 
     return Response(status_code=status.HTTP_204_NO_CONTENT)
-
-
-@router.get("/ping")
-def articles_ping() -> dict[str, str]:
-    return {"message": "articles route ready"}
