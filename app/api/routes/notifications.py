@@ -22,8 +22,3 @@ def list_my_notifications(
         .all()
     )
     return notifications
-
-
-@router.get("/ping")
-def notifications_ping() -> dict[str, str]:
-    return {"message": "notifications route ready"}
