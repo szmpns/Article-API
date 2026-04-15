@@ -3,7 +3,8 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):
     app_name: str = "Article API"
-    debug: bool = True
+    debug: bool = False
+    testing: bool = False
 
     db_host: str = "db"
     db_port: int = 5432
