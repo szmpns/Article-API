@@ -57,8 +57,3 @@ def unsubscribe_me(
     db.commit()
 
     return Response(status_code=status.HTTP_204_NO_CONTENT)
-
-
-@router.get("/ping")
-def subscriptions_ping() -> dict[str, str]:
-    return {"message": "subscriptions route ready"}
